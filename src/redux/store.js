@@ -1,7 +1,7 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { contactsReducer } from "./contactsSlice";
-import { filtersReducer } from "./filtersSlice";
-import storage from "redux-persist/lib/storage";
+import { configureStore } from '@reduxjs/toolkit';
+import { contactsReducer } from './contactsSlice';
+import { filtersReducer } from './filtersSlice'; // Импортируем filtersReducer
+import storage from 'redux-persist/lib/storage';
 import {
   persistReducer,
   persistStore,
@@ -11,24 +11,19 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from "redux-persist";
-
-// import persistReducer from "redux-persist/es/persistReducer";
+} from 'redux-persist';
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   storage,
 };
 
-
-
 export const persistedReducer = persistReducer(persistConfig, contactsReducer);
-
 
 export const store = configureStore({
   reducer: {
     contacts: persistedReducer,
-    filters: filtersReducer,
+    filters: filtersReducer, // Используем filtersReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -37,17 +32,6 @@ export const store = configureStore({
       },
     }),
 });
-export default store; 
-
-
-
-
-
-
-
-
-
 
 export const persistor = persistStore(store);
-
-
+export default store;
